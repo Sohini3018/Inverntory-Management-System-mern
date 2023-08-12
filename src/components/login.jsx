@@ -52,9 +52,10 @@ const Logo = styled("img")({
   marginLeft: "5px",
 });
 const ImageComponent = styled("img")({
-  marginTop: "30px",
-  width: "700px",
-  height: "700px",
+  marginTop: "100px",
+  marginRight: "80px",
+  width: "550px",
+  height: "550px",
 });
 
 function login() {
