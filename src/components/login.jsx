@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import backgroundImage from "../Assets/Inventory_image.jpg";
-import logo from "../Assets/flat-color-icons_google.png";
+import logoimage from "../Assets/Logo_image.png";
 import { Box, TextField, Button, Typography } from "@mui/material";
 import { styled } from "@mui/system";
 
@@ -9,7 +9,15 @@ const Component = styled(Box)`
   justify-content: space-around;
   margin: 0 5px;
 `;
+const MainComponent = styled(Box)``;
 
+const LogoImage = styled("img")({
+  height: "120px",
+  width: "120px",
+  position: "absolute",
+  right: "60px",
+  top: "30px",
+});
 const FormComponent = styled(Box)`
   width: 550px;
   padding: 50px 45px;
@@ -17,7 +25,7 @@ const FormComponent = styled(Box)`
   border-radius: 15px;
   display: flex;
   flex-direction: column;
-  gap: 40px;
+  gap: 30px;
   margin: 50px 35px;
 `;
 
@@ -48,9 +56,13 @@ const Input = styled(TextField)`
   background-color: #eef5f9;
 `;
 
-const Logo = styled("img")({
-  marginLeft: "5px",
-});
+const Text = styled(Typography)`
+  text-align: center;
+`;
+
+// const Logo = styled("img")({
+//   marginLeft: "5px",
+// });
 const ImageComponent = styled("img")({
   marginTop: "100px",
   marginRight: "80px",
@@ -58,31 +70,72 @@ const ImageComponent = styled("img")({
   height: "550px",
 });
 
-function login() {
+function Login() {
+  const [account, toggleAccount] = useState("loggedIn");
+
   return (
-    <Component>
-      <FormComponent>
-        <Tagline variant="h6">See Your Growth and Get Support!</Tagline>
+    <MainComponent>
+      <LogoImage src={logoimage} alt="" />
+      <Component>
+        {account === "loggedIn" ? (
+          <FormComponent>
+            <Tagline variant="h6">See Your Growth and Get Support!</Tagline>
 
-        <Input type="email" label="Email" variant="outlined" />
-        <Input type="password" label="Password" variant="outlined" />
-        <LoginButton type="submit" variant="contained">
-          Login
-        </LoginButton>
+            <Input type="email" label="Email" variant="outlined" />
+            <Input type="password" label="Password" variant="outlined" />
+            <LoginButton type="submit" variant="contained">
+              Login
+            </LoginButton>
 
-        <Typography>Not registered yet? Create a new account</Typography>
-        <SignInButton type="submit" variant="outlined">
-          Sign in with Google <Logo src={logo} alt="" />
-        </SignInButton>
-      </FormComponent>
+            <Text>Not registered yet?</Text>
+            <SignInButton
+              type="submit"
+              variant="outlined"
+              onClick={() => {
+                toggleAccount("notLoggedIn");
+              }}
+            >
+              Create a New Account
+            </SignInButton>
+          </FormComponent>
+        ) : (
+          <FormComponent style={{ gap: "15px" }}>
+            <Tagline variant="h6">See Your Growth and Get Support!</Tagline>
 
-      <ImageComponent
-        src={backgroundImage}
-        alt="Login Background"
-        className="login-image"
-      />
-    </Component>
+            <Input type="text" label="Full Name" variant="outlined" />
+            <Input type="text" label="Phone Number" variant="outlined" />
+            <Input type="email" label="Email" variant="outlined" />
+            <Input
+              type="password"
+              label="Create a Password"
+              variant="outlined"
+            />
+            <LoginButton type="submit" variant="contained">
+              Create a New Account
+            </LoginButton>
+
+            <Text>Already Have an Account?</Text>
+
+            <SignInButton
+              type="submit"
+              variant="outlined"
+              onClick={() => {
+                toggleAccount("loggedIn");
+              }}
+            >
+              Login
+            </SignInButton>
+          </FormComponent>
+        )}
+
+        <ImageComponent
+          src={backgroundImage}
+          alt="Login Background"
+          className="login-image"
+        />
+      </Component>
+    </MainComponent>
   );
 }
 
-export default login;
+export default Login;
