@@ -8,13 +8,16 @@ const DrawerHeader = styled("div")(({ theme }) => ({
   // necessary for content to be below app bar
   ...theme.mixins.toolbar,
 }));
-function Order() {
+function Users() {
   return (
-    <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+    <Box
+      component="main"
+      sx={{ flexGrow: 1, p: 3, backgroundColor: "#f3f6f9" }}
+    >
       <DrawerHeader />
-      <Typography paragraph>HoHoHoHoHo</Typography>
+      <Typography>Users</Typography>
     </Box>
   );
 }
 
-export default Order;
+export default Users;

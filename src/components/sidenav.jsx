@@ -1,5 +1,10 @@
 import { React, useState } from "react";
-import Orders from "./order";
+import Dashboard from "./dashboard";
+import Orders from "./orders";
+import Instock from "./instock";
+import Products from "./products";
+import Sales from "./sales";
+import Users from "./users";
 import { styled, useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import MuiDrawer from "@mui/material/Drawer";
@@ -71,6 +76,7 @@ const AppBar = styled(MuiAppBar, {
       duration: theme.transitions.duration.enteringScreen,
     }),
   }),
+  background: "#ffffff",
 }));
 
 const Drawer = styled(MuiDrawer, {
@@ -95,12 +101,15 @@ export default function Sidenav() {
   const [open, setOpen] = useState(false);
 
   const [selectedSection, setSelectedSection] = useState(null);
+  const [cardWidth, setCardWidth] = useState({ width: "315px" });
   const handleDrawerOpen = () => {
     setOpen(true);
+    setCardWidth({ width: "300px" });
   };
 
   const handleDrawerClose = () => {
     setOpen(false);
+    setCardWidth({ width: "315px" });
   };
 
   function handleComponent(section) {
@@ -110,20 +119,18 @@ export default function Sidenav() {
   const renderComponent = () => {
     if (selectedSection === "Orders") {
       return <Orders />;
+    } else if (selectedSection === "Instock") {
+      return <Instock />;
+    } else if (selectedSection === "Products") {
+      return <Products />;
+    } else if (selectedSection === "Sales") {
+      return <Sales />;
+    } else if (selectedSection === "Users") {
+      return <Users />;
     }
     // Add similar conditions for other menu items
     else {
-      return (
-        <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-          <DrawerHeader />
-          <Typography paragraph>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Rhoncus
-            dolor purus non enim praesent elementum facilisis leo vel. Risus at
-            ultrices mi tempus imperdiet.
-          </Typography>
-        </Box>
-      );
+      return <Dashboard cardWidth={cardWidth} />;
     }
   };
 
@@ -139,13 +146,19 @@ export default function Sidenav() {
             edge="start"
             sx={{
               marginRight: 5,
+              color: "#000000",
               ...(open && { display: "none" }),
             }}
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap component="div">
-            Mini variant drawer
+          <Typography
+            variant="h6"
+            noWrap
+            component="div"
+            sx={{ color: "#000000" }}
+          >
+            Dashboard
           </Typography>
         </Toolbar>
       </AppBar>
@@ -165,7 +178,7 @@ export default function Sidenav() {
             {
               text: "Dashboard",
               icon: <DashboardIcon />,
-              section: "dashboard",
+              section: "Dashboard",
             },
             { text: "Instock", icon: <ShoppingCartIcon />, section: "Instock" },
             { text: "Products", icon: <StorefrontIcon />, section: "Products" },

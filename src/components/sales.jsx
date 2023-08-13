@@ -1,5 +1,5 @@
-import React from "react";
 import { Box, Typography, styled } from "@mui/material";
+import React from "react";
 const DrawerHeader = styled("div")(({ theme }) => ({
   display: "flex",
   alignItems: "center",
@@ -8,16 +8,16 @@ const DrawerHeader = styled("div")(({ theme }) => ({
   // necessary for content to be below app bar
   ...theme.mixins.toolbar,
 }));
-function Products() {
+function Sales() {
   return (
     <Box
       component="main"
       sx={{ flexGrow: 1, p: 3, backgroundColor: "#f3f6f9" }}
     >
       <DrawerHeader />
-      <Typography>Products</Typography>
+      <Typography>Sales</Typography>
     </Box>
   );
 }
 
-export default Products;
+export default Sales;

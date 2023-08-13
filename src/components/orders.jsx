@@ -8,16 +8,16 @@ const DrawerHeader = styled("div")(({ theme }) => ({
   // necessary for content to be below app bar
   ...theme.mixins.toolbar,
 }));
-function Products() {
+function Orders() {
   return (
     <Box
       component="main"
       sx={{ flexGrow: 1, p: 3, backgroundColor: "#f3f6f9" }}
     >
       <DrawerHeader />
-      <Typography>Products</Typography>
+      <Typography>Orders</Typography>
     </Box>
   );
 }
 
-export default Products;
+export default Orders;
