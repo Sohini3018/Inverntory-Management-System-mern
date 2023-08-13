@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import backgroundImage from "../Assets/Inventory_image.jpg";
 import logoimage from "../Assets/Logo_image.png";
 import { Box, TextField, Button, Typography } from "@mui/material";
@@ -72,7 +73,10 @@ const ImageComponent = styled("img")({
 
 function Login() {
   const [account, toggleAccount] = useState("loggedIn");
-
+  const navigate = useNavigate();
+  const handleLogin = () => {
+    navigate("/dashboard");
+  };
   return (
     <MainComponent>
       <LogoImage src={logoimage} alt="" />
@@ -83,7 +87,11 @@ function Login() {
 
             <Input type="email" label="Email" variant="outlined" />
             <Input type="password" label="Password" variant="outlined" />
-            <LoginButton type="submit" variant="contained">
+            <LoginButton
+              type="submit"
+              variant="contained"
+              onClick={handleLogin}
+            >
               Login
             </LoginButton>
 
