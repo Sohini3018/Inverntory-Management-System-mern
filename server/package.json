@@ -1,0 +1,23 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "Backend of Inventory Management System",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sohini3018/Inverntory-Management-System.git"
+  },
+  "author": "Sohini Bhattacharjee",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Sohini3018/Inverntory-Management-System/issues"
+  },
+  "homepage": "https://github.com/Sohini3018/Inverntory-Management-System#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "passport": "^0.6.0"
+  }
+}
