@@ -1,4 +1,5 @@
 import { React, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Dashboard from "./dashboard";
 import Orders from "./Orders/orders";
 import Instock from "./Instock/instock";
@@ -29,6 +30,7 @@ import AssignmentIndIcon from "@mui/icons-material/AssignmentInd";
 import GroupIcon from "@mui/icons-material/Group";
 import Avatar from "@mui/material/Avatar";
 import { deepOrange } from "@mui/material/colors";
+import { Button } from "@mui/material";
 const drawerWidth = 240;
 
 const openedMixin = (theme) => ({
@@ -98,6 +100,7 @@ const Drawer = styled(MuiDrawer, {
 }));
 
 export default function Sidenav() {
+  const navigate = useNavigate();
   const theme = useTheme();
   const [open, setOpen] = useState(false);
 
@@ -135,6 +138,11 @@ export default function Sidenav() {
     }
   };
 
+  const handleLogout = () => {
+    localStorage.clear();
+    navigate("/");
+  };
+
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
@@ -154,6 +162,9 @@ export default function Sidenav() {
             <MenuIcon />
           </IconButton>
           <Avatar sx={{ bgcolor: deepOrange[500] }}>N</Avatar>
+          <Button variant="outlined" onClick={handleLogout}>
+            Logout
+          </Button>
         </Toolbar>
       </AppBar>
       <Drawer variant="permanent" open={open}>

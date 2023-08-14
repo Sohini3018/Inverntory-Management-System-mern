@@ -73,10 +73,52 @@ const ImageComponent = styled("img")({
 
 function Login() {
   const [account, toggleAccount] = useState("loggedIn");
+  const [input, setInput] = useState({
+    name: "",
+    name: "",
+    email: "",
+    password: "",
+  });
   const navigate = useNavigate();
   const handleLogin = () => {
     navigate("/dashboard");
   };
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setInput((prevValue) => {
+      return {
+        ...prevValue,
+        [name]: value,
+      };
+    });
+  };
+
+  const getInput = async () => {
+    try {
+      const userData = await fetch("http://localhost:5000/register", {
+        method: "POST",
+        body: JSON.stringify(input),
+        headers: {
+          "content-type": "application/json",
+        },
+      });
+
+      if (!userData.ok) {
+        throw new Error("Registration failed");
+      }
+
+      const userDataJson = await userData.json();
+      console.log(userDataJson);
+
+      localStorage.setItem("user", JSON.stringify(userDataJson));
+      navigate("/dashboard");
+    } catch (error) {
+      console.error("Error during registration:", error);
+      // Handle error, show error message, etc.
+    }
+  };
+
   return (
     <MainComponent>
       <LogoImage src={logoimage} alt="" />
@@ -110,15 +152,35 @@ function Login() {
           <FormComponent style={{ gap: "15px" }}>
             <Tagline variant="h6">See Your Growth and Get Support!</Tagline>
 
-            <Input type="text" label="Full Name" variant="outlined" />
-            <Input type="text" label="Phone Number" variant="outlined" />
-            <Input type="email" label="Email" variant="outlined" />
+            <Input
+              type="text"
+              label="Full Name"
+              variant="outlined"
+              name="name"
+              onChange={handleChange}
+            />
+            <Input
+              type="text"
+              label="Phone Number"
+              variant="outlined"
+              name="phoneNumber"
+              onChange={handleChange}
+            />
+            <Input
+              type="email"
+              label="Email"
+              variant="outlined"
+              name="email"
+              onChange={handleChange}
+            />
             <Input
               type="password"
               label="Create a Password"
               variant="outlined"
+              name="password"
+              onChange={handleChange}
             />
-            <LoginButton type="submit" variant="contained">
+            <LoginButton type="submit" variant="contained" onClick={getInput}>
               Create a New Account
             </LoginButton>
 
