@@ -28,13 +28,13 @@ const Container = styled(Box)`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 606.14px;
+  height: 611px;
 `;
 function Dashboard(props) {
   return (
     <Box
       component="main"
-      sx={{ flexGrow: 1, p: 3, backgroundColor: "#f3f6f9" }}
+      sx={{ flexGrow: 1, p: 3, backgroundColor: "#f3f6f9", height: "739px" }}
     >
       <DrawerHeader />
       <Container>

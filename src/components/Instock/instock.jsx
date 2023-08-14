@@ -6,11 +6,19 @@ import {
   styled,
   alpha,
   InputBase,
+  Table,
+  TableBody,
+  TableContainer,
+  Paper,
+  TableHead,
+  TableRow,
+  TableCell,
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import SearchIcon from "@mui/icons-material/Search";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import Select from "react-dropdown-select";
+import InstockRow from "./instockRows";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -25,6 +33,9 @@ const Search = styled("div")(({ theme }) => ({
     marginLeft: theme.spacing(1),
     width: "auto",
   },
+  width: "479px",
+  height: "44px",
+  border: "0.5px solid gray",
 }));
 
 const SearchIconWrapper = styled("div")(({ theme }) => ({
@@ -63,13 +74,15 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 }));
 
 const Buttons = styled(Box)`
-  width: 600px;
   display: flex;
   justify-content: space-between;
 `;
 const Wrapper = styled(Box)`
+  height: 80px;
   display: flex;
   justify-content: space-between;
+  border-bottom: 0.05px solid #dacdcd;
+  align-items: center;
 `;
 const OrderButton = styled(Button)`
   text-transform: none;
@@ -78,12 +91,18 @@ const OrderButton = styled(Button)`
 `;
 
 const Options = styled(Box)`
-  width: 500px;
+  width: 200px;
   display: flex;
   justify-content: space-between;
 `;
 
-function Orders() {
+const CalendarBox = styled(Box)`
+  border: 1.5px solid #bdb9b9;
+  border-radius: 1.5px;
+  width: 49px;
+`;
+
+function Instocks() {
   const options = [
     {
       value: 1,
@@ -94,17 +113,37 @@ function Orders() {
       label: "Ervin Howell",
     },
   ];
+
+  const orders = [
+    {
+      orderId: "123",
+      date: "2023-08-15",
+      customer: "John Doe",
+      salesChannel: "Online",
+      destination: "USA",
+      items: "3",
+      status: "Processing",
+    },
+    {
+      orderId: "124",
+      date: "2023-08-16",
+      customer: "Jane Smith",
+      salesChannel: "In-store",
+      destination: "Canada",
+      items: "5",
+      status: "Shipped",
+    },
+    // ... Add more orders here
+  ];
   return (
     <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
       <DrawerHeader />
       <Wrapper>
-        <Typography fontSize={20}>Orders</Typography>
+        <Typography fontSize={25}>Instocks</Typography>
         <Buttons>
-          <OrderButton variant="outlined">Export To Excel</OrderButton>
-          <OrderButton variant="outlined">Import Orders</OrderButton>
           <OrderButton variant="contained">
             <AddIcon />
-            New Orders
+            New Stocks
           </OrderButton>
         </Buttons>
       </Wrapper>
@@ -114,35 +153,48 @@ function Orders() {
             <SearchIcon />
           </SearchIconWrapper>
           <StyledInputBase
-            placeholder="Search…"
+            placeholder="Search Order "
             inputProps={{ "aria-label": "search" }}
           />
         </Search>
 
         <Options>
-          <CalendarMonthIcon />
-          <Select
-            options={options}
-            placeholder="Sales"
-            style={{ width: "130px", height: "40px" }}
-            onChange={(values) => this.setValues(values)}
-          />
+          <CalendarBox>
+            <CalendarMonthIcon
+              style={{ position: "relative", top: "7px", left: "10px" }}
+            />
+          </CalendarBox>
           <Select
             options={options}
             placeholder="Status"
             style={{ width: "130px", height: "40px" }}
             onChange={(values) => this.setValues(values)}
           />
-          <Select
-            options={options}
-            placeholder="Filter"
-            style={{ width: "130px", height: "40px" }}
-            onChange={(values) => this.setValues(values)}
-          />
         </Options>
       </Wrapper>
+
+      <TableContainer component={Paper}>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell>Order ID</TableCell>
+              <TableCell>Date</TableCell>
+              <TableCell>Customer</TableCell>
+              <TableCell>Sales Channel</TableCell>
+              <TableCell>Destination</TableCell>
+              <TableCell>Items</TableCell>
+              <TableCell>Status</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {orders.map((order) => (
+              <InstockRow key={order.orderId} order={order} />
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
     </Box>
   );
 }
 
-export default Orders;
+export default Instocks;

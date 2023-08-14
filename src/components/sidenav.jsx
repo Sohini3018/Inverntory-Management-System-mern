@@ -1,7 +1,7 @@
 import { React, useState } from "react";
 import Dashboard from "./dashboard";
-import Orders from "./orders";
-import Instock from "./instock";
+import Orders from "./Orders/orders";
+import Instock from "./Instock/instock";
 import Products from "./products";
 import Sales from "./sales";
 import Users from "./users";
@@ -12,7 +12,6 @@ import MuiAppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import List from "@mui/material/List";
 import CssBaseline from "@mui/material/CssBaseline";
-import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -28,6 +27,8 @@ import StorefrontIcon from "@mui/icons-material/Storefront";
 import TrendingUpIcon from "@mui/icons-material/TrendingUp";
 import AssignmentIndIcon from "@mui/icons-material/AssignmentInd";
 import GroupIcon from "@mui/icons-material/Group";
+import Avatar from "@mui/material/Avatar";
+import { deepOrange } from "@mui/material/colors";
 const drawerWidth = 240;
 
 const openedMixin = (theme) => ({
@@ -152,6 +153,7 @@ export default function Sidenav() {
           >
             <MenuIcon />
           </IconButton>
+          <Avatar sx={{ bgcolor: deepOrange[500] }}>N</Avatar>
         </Toolbar>
       </AppBar>
       <Drawer variant="permanent" open={open}>
