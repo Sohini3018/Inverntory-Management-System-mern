@@ -1,4 +1,4 @@
-import { React, useState } from "react";
+import { React, useState, useEffect } from "react";
 import {
   Box,
   Button,
@@ -20,7 +20,6 @@ import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import Select from "react-dropdown-select";
 import OrderRow from "./orderRows";
 import PopupForm from "./popupForm";
-import { parse } from "date-fns";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -121,6 +120,12 @@ function Orders() {
   };
 
   const [isFormOpen, setIsFormOpen] = useState(false);
+
+  useEffect(() => {
+    // Load orders from local storage
+    const storedOrders = JSON.parse(localStorage.getItem("orders")) || [];
+    setOrders(storedOrders);
+  }, []);
 
   return (
     <Box component="main" sx={{ flexGrow: 1, p: 3 }}>

@@ -46,6 +46,11 @@ function PopupForm({ onHandleSubmit, onCancel, onAddOrder }) {
 
       if (response.ok) {
         console.log("Order added successfully!" + newOrder.orderId);
+        // Store the new order in local storage
+        const existingOrders = JSON.parse(localStorage.getItem("orders")) || [];
+        const updatedOrders = [...existingOrders, orderItem];
+        localStorage.setItem("orders", JSON.stringify(updatedOrders));
+
         onAddOrder(orderItem);
       } else {
         console.error("Error adding order:", response.status);
