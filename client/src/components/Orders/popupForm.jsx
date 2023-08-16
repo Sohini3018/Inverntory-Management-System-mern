@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Box, Input, Button, styled } from "@mui/material";
 
-function PopupForm({ onSubmit, onCancel, onAddOrder }) {
+function PopupForm({ onHandleSubmit, onCancel, onAddOrder }) {
   const [newOrder, setNewOrder] = useState({
     orderId: "",
     date: "",
@@ -20,9 +20,44 @@ function PopupForm({ onSubmit, onCancel, onAddOrder }) {
     });
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    onAddOrder(newOrder); // Call the callback to add the new order
+
+    try {
+      const orderItem = {
+        type: "return",
+        orderId: newOrder.orderId,
+        customer: newOrder.customer,
+        salesChannel: newOrder.salesChannel,
+        destination: newOrder.destination,
+        amount: newOrder.items,
+        date: newOrder.date,
+        details: `Customer: ${newOrder.customer}`,
+        status: newOrder.status,
+      };
+      // Make an HTTP POST request to your backend API
+      const response = await fetch("http://localhost:5000/add-transaction", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(orderItem), // Send the new order data
+      });
+
+      if (response.ok) {
+        console.log("Order added successfully!" + newOrder.orderId);
+        onAddOrder(orderItem);
+      } else {
+        console.error("Error adding order:", response.status);
+      }
+    } catch (error) {
+      console.error("Error adding order:", error);
+    }
+
+    if (onHandleSubmit) {
+      onHandleSubmit(); // Call the callback for submitting the form if it's defined
+    }
+
     onCancel(); // Close the form after submitting
   };
 
@@ -68,7 +103,7 @@ function PopupForm({ onSubmit, onCancel, onAddOrder }) {
           onChange={handleInputChange}
         />
         <Input
-          type="text"
+          type="number"
           name="items"
           value={newOrder.items}
           placeholder="Number of Items"

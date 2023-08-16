@@ -8,7 +8,9 @@ const cors = require('cors');
 
 app.use(express.json());
 app.use(cors());
-
+app.use(cors({
+    origin: 'http://localhost:3000' // Replace with your frontend's domain
+}));
 dbConnect();
 
 // Sigm-up API
@@ -19,10 +21,16 @@ app.post('/register', async (req, res) => {
 })
 
 app.post('/add-transaction', async (req, res) => {
-    const newTransaction = new Transaction(req.body);
-    const result = await newTransaction.save();
-    res.send(result);
+    try {
+        const newTransaction = new Transaction(req.body);
+        const result = await newTransaction.save();
+        res.send(result);
+    } catch (error) {
+        console.error("Error adding order:", error);
+        res.status(500).json({ error: 'An error occurred' });
+    }
 });
+
 app.get('/dashboard-stats', async (req, res) => {
     try {
         // Perform aggregation queries to calculate dashboard statistics

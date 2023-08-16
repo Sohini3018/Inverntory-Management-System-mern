@@ -9,7 +9,7 @@ function OrderRow({ order }) {
       <TableCell>{order.customer}</TableCell>
       <TableCell>{order.salesChannel}</TableCell>
       <TableCell>{order.destination}</TableCell>
-      <TableCell>{order.items}</TableCell>
+      <TableCell>{order.amount}</TableCell>
       <TableCell>{order.status}</TableCell>
     </TableRow>
   );
