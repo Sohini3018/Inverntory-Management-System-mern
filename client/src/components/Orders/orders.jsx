@@ -1,4 +1,4 @@
-import React from "react";
+import { React, useState } from "react";
 import {
   Box,
   Button,
@@ -19,6 +19,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import Select from "react-dropdown-select";
 import OrderRow from "./orderRows";
+import PopupForm from "./popupForm";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -113,36 +114,12 @@ function Orders() {
     },
   ];
 
-  const orders = [
-    {
-      orderId: "123",
-      date: "2023-08-15",
-      customer: "John Doe",
-      salesChannel: "Online",
-      destination: "USA",
-      items: "3",
-      status: "Processing",
-    },
-    {
-      orderId: "124",
-      date: "2023-08-16",
-      customer: "Jane Smith",
-      salesChannel: "In-store",
-      destination: "Canada",
-      items: "5",
-      status: "Shipped",
-    },
-    {
-      orderId: "125",
-      date: "2023-08-15",
-      customer: "Tithi Deb",
-      salesChannel: "In-store",
-      destination: "India",
-      items: "10",
-      status: "Delivered",
-    },
-    // ... Add more orders here
-  ];
+  const [orders, setOrders] = useState([]);
+  const addOrder = (newOrder) => {
+    setOrders([...orders, newOrder]);
+  };
+
+  const [isFormOpen, setIsFormOpen] = useState(false);
   return (
     <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
       <DrawerHeader />
@@ -151,12 +128,29 @@ function Orders() {
         <Buttons>
           <OrderButton variant="outlined">Export To Excel</OrderButton>
           <OrderButton variant="outlined">Import Orders</OrderButton>
-          <OrderButton variant="contained">
+          <OrderButton
+            variant="contained"
+            onClick={() => {
+              setIsFormOpen(!isFormOpen);
+            }}
+          >
             <AddIcon />
             New Orders
           </OrderButton>
         </Buttons>
       </Wrapper>
+
+      {isFormOpen && (
+        <Wrapper>
+          <PopupForm
+            onCancel={() => {
+              setIsFormOpen(!isFormOpen);
+            }}
+            onAddOrder={addOrder}
+          />
+        </Wrapper>
+      )}
+
       <Wrapper>
         <Search>
           <SearchIconWrapper>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   Box,
   Card,
@@ -30,7 +30,29 @@ const Container = styled(Box)`
   justify-content: space-between;
   height: 611px;
 `;
+
 function Dashboard(props) {
+  const [dashboardData, setDashboardData] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await fetch("http://localhost:5000/dashboard-stats");
+        const data = await response.json();
+        setDashboardData(data);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    }
+    fetchData();
+  }, []);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <Box
       component="main"
@@ -48,8 +70,13 @@ function Dashboard(props) {
               >
                 Revenue
               </Typography>
-              <CurrencyRupeeIcon />
-              <AddIcon />
+              <Wrapper width={100} alignItems={"center"}>
+                <CurrencyRupeeIcon />
+                <AddIcon />
+                <Typography sx={{ fontSize: 25 }} color="text.primary">
+                  {dashboardData.totalRevenue}
+                </Typography>
+              </Wrapper>
             </CardContent>
             <CardActions></CardActions>
           </Card>
@@ -62,8 +89,13 @@ function Dashboard(props) {
               >
                 Sales Return
               </Typography>
-              <CurrencyRupeeIcon />
-              <AddIcon />
+              <Wrapper width={100} alignItems={"center"}>
+                <CurrencyRupeeIcon />
+                <AddIcon />
+                <Typography sx={{ fontSize: 25 }} color="text.primary">
+                  {dashboardData.salesReturn}
+                </Typography>
+              </Wrapper>
             </CardContent>
             <CardActions></CardActions>
           </Card>
@@ -76,8 +108,13 @@ function Dashboard(props) {
               >
                 Purchase
               </Typography>
-              <CurrencyRupeeIcon />
-              <AddIcon />
+              <Wrapper width={100} alignItems={"center"}>
+                <CurrencyRupeeIcon />
+                <AddIcon />
+                <Typography sx={{ fontSize: 25 }} color="text.primary">
+                  {dashboardData.totalPurchase}
+                </Typography>
+              </Wrapper>
             </CardContent>
             <CardActions></CardActions>
           </Card>
@@ -90,8 +127,13 @@ function Dashboard(props) {
               >
                 Income
               </Typography>
-              <CurrencyRupeeIcon />
-              <AddIcon />
+              <Wrapper width={100} alignItems={"center"}>
+                <CurrencyRupeeIcon />
+                <AddIcon />
+                <Typography sx={{ fontSize: 25 }} color="text.primary">
+                  {dashboardData.totalIncome}
+                </Typography>
+              </Wrapper>
             </CardContent>
             <CardActions></CardActions>
           </Card>
