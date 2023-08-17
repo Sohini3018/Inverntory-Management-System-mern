@@ -69,7 +69,6 @@ app.get('/dashboard-stats', async (req, res) => {
             { $group: { _id: null, total: { $sum: "$amount" } } }
         ]);
 
-        // Find the top-selling products based on the quantity of transactions
         const topSellingProducts = await Transaction.aggregate([
             { $match: { type: "return" } },
             { $group: { _id: "$products", quantitySold: { $sum: "$amount" } } },
@@ -120,11 +119,26 @@ app.get('/sales-stats', async (req, res) => {
 
         const customerCount = await Transaction.aggregate(customerCountPipeline);
 
+        const todayTopSellingProducts = await Transaction.aggregate([
+            { $match: { type: "return", date: { $gte: today } } },
+            { $unwind: "$products" }, // Assuming "products" is an array field in your schema
+            {
+                $group: {
+                    _id: "$products",
+                    quantitySold: { $sum: "$amount" },
+                },
+            },
+            { $sort: { quantitySold: -1 } },
+            { $limit: 10 } // You can adjust this number to show more or fewer products
+        ]);
+
+
         res.status(200).json({
             totalRevenue: totalRevenue[0] ? totalRevenue[0].total : 0,
             salesReturn: salesReturn[0] ? salesReturn[0].total : 0,
             orderCount: orderCount,
             customerCount: customerCount.length > 0 ? customerCount[0].count : 0,
+            todayTopSellingProducts: todayTopSellingProducts,
         });
     } catch (error) {
         res.status(500).json({ error: 'An error occurred' });
