@@ -161,7 +161,6 @@ export default function Sidenav() {
           >
             <MenuIcon />
           </IconButton>
-          <Avatar sx={{ bgcolor: deepOrange[500] }}>N</Avatar>
           <Button variant="outlined" onClick={handleLogout}>
             Logout
           </Button>

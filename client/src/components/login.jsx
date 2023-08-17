@@ -75,14 +75,14 @@ function Login() {
   const [account, toggleAccount] = useState("loggedIn");
   const [input, setInput] = useState({
     name: "",
-    name: "",
+    email: "",
+    password: "",
+  });
+  const [loginInput, setloginInput] = useState({
     email: "",
     password: "",
   });
   const navigate = useNavigate();
-  const handleLogin = () => {
-    navigate("/dashboard");
-  };
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -94,7 +94,17 @@ function Login() {
     });
   };
 
-  const getInput = async () => {
+  const handleLoginChange = (event) => {
+    const { name, value } = event.target;
+    setloginInput((prevValue) => {
+      return {
+        ...prevValue,
+        [name]: value,
+      };
+    });
+  };
+
+  const getRegInput = async () => {
     try {
       const userData = await fetch("http://localhost:5000/register", {
         method: "POST",
@@ -119,6 +129,30 @@ function Login() {
     }
   };
 
+  const getLoginInput = async () => {
+    try {
+      const userData = await fetch("http://localhost:5000/login", {
+        method: "POST",
+        body: JSON.stringify(loginInput),
+        headers: {
+          "content-type": "application/json",
+        },
+      });
+
+      if (!userData.ok) {
+        throw new Error("Login failed");
+      }
+
+      const userDataJson = await userData.json();
+      console.log(userDataJson);
+      localStorage.setItem("user", JSON.stringify(userDataJson));
+      navigate("/dashboard");
+    } catch (error) {
+      console.error("Error during login:", error);
+      // Handle error, show error message, etc.
+    }
+  };
+
   return (
     <MainComponent>
       <LogoImage src={logoimage} alt="" />
@@ -127,12 +161,24 @@ function Login() {
           <FormComponent>
             <Tagline variant="h6">See Your Growth and Get Support!</Tagline>
 
-            <Input type="email" label="Email" variant="outlined" />
-            <Input type="password" label="Password" variant="outlined" />
+            <Input
+              type="email"
+              label="Email"
+              variant="outlined"
+              name="email"
+              onChange={handleLoginChange}
+            />
+            <Input
+              type="password"
+              label="Enter Password"
+              variant="outlined"
+              name="password"
+              onChange={handleLoginChange}
+            />
             <LoginButton
               type="submit"
               variant="contained"
-              onClick={handleLogin}
+              onClick={getLoginInput}
             >
               Login
             </LoginButton>
@@ -180,7 +226,11 @@ function Login() {
               name="password"
               onChange={handleChange}
             />
-            <LoginButton type="submit" variant="contained" onClick={getInput}>
+            <LoginButton
+              type="submit"
+              variant="contained"
+              onClick={getRegInput}
+            >
               Create a New Account
             </LoginButton>
 

@@ -1,13 +1,12 @@
 const express = require('express');
 const app = express();
 const dbConnect = require('./db/mongodb.js');
-const loginModel = require('./db/schema.js');
+const userModel = require('./db/schema.js');
 const Transaction = require('./db/transactions.js');
 const cors = require('cors');
 
 
 app.use(express.json());
-app.use(cors());
 app.use(cors({
     origin: 'http://localhost:3000' // Replace with your frontend's domain
 }));
@@ -15,10 +14,29 @@ dbConnect();
 
 // Sigm-up API
 app.post('/register', async (req, res) => {
-    const user = new loginModel(req.body);
+    const user = new userModel(req.body);
     const result = await user.save();
     res.send(result);
 })
+
+// Login API
+app.post('/login', async (req, res) => {
+    if (req.body.email && req.body.password) {
+        const user = await userModel.findOne(req.body).select("-password");
+        if (user) {
+            res.send(user);
+        } else {
+            res.send("No such user");
+        }
+    }
+    else {
+        res.send("No such user");
+    }
+
+
+
+});
+
 
 app.post('/add-transaction', async (req, res) => {
     try {
