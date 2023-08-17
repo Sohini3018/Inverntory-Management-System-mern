@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import Dashboard from "./dashboard";
 import Orders from "./Orders/orders";
 import Instock from "./Instock/instock";
-import Products from "./products";
 import Sales from "./sales";
 import Users from "./users";
 import { styled, useTheme } from "@mui/material/styles";
@@ -24,12 +23,9 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import StorefrontIcon from "@mui/icons-material/Storefront";
 import TrendingUpIcon from "@mui/icons-material/TrendingUp";
 import AssignmentIndIcon from "@mui/icons-material/AssignmentInd";
 import GroupIcon from "@mui/icons-material/Group";
-import Avatar from "@mui/material/Avatar";
-import { deepOrange } from "@mui/material/colors";
 import { Button } from "@mui/material";
 const drawerWidth = 240;
 
@@ -125,8 +121,6 @@ export default function Sidenav() {
       return <Orders />;
     } else if (selectedSection === "Instock") {
       return <Instock />;
-    } else if (selectedSection === "Products") {
-      return <Products />;
     } else if (selectedSection === "Sales") {
       return <Sales />;
     } else if (selectedSection === "Users") {
@@ -139,7 +133,7 @@ export default function Sidenav() {
   };
 
   const handleLogout = () => {
-    localStorage.clear();
+    localStorage.removeItem("user");
     navigate("/");
   };
 
@@ -185,7 +179,6 @@ export default function Sidenav() {
               section: "Dashboard",
             },
             { text: "Instock", icon: <ShoppingCartIcon />, section: "Instock" },
-            { text: "Products", icon: <StorefrontIcon />, section: "Products" },
             { text: "Sales", icon: <TrendingUpIcon />, section: "Sales" },
             { text: "Orders", icon: <AssignmentIndIcon />, section: "Orders" },
             { text: "Users", icon: <GroupIcon />, section: "Users" },

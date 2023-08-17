@@ -59,7 +59,13 @@ function Dashboard(props) {
               "rgb(255, 99, 132)",
               "rgb(54, 162, 235)",
               "rgb(255, 205, 86)",
-              // Add more colors as needed
+              "rgb(75, 192, 192)", // Teal
+              "rgb(153, 102, 255)", // Purple
+              "rgb(255, 159, 64)",
+              "rgb(34, 139, 34)", // Dark Green
+              "rgb(238, 130, 238)", // Violet
+              "rgb(165, 42, 42)", // Brown
+              "rgb(70, 130, 180)", // Steel Blue
             ],
           },
         ],
@@ -97,7 +103,13 @@ function Dashboard(props) {
               "rgba(255, 99, 132, 0.6)",
               "rgba(54, 162, 235, 0.6)",
               "rgba(255, 205, 86, 0.6)",
-              // Add more colors as needed
+              "rgba(75, 192, 192, 0.6)",
+              "rgba(153, 102, 255, 0.6)",
+              "rgba(255, 159, 64, 0.6)",
+              "rgba(34, 139, 34, 0.6)", // Dark Green
+              "rgba(238, 130, 238, 0.6)", // Violet
+              "rgba(165, 42, 42, 0.6)", // Brown
+              "rgba(70, 130, 180, 0.6)", // Steel Blue
             ],
             borderColor: [
               "rgb(255, 99, 132)",

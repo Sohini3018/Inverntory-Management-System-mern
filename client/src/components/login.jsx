@@ -76,6 +76,7 @@ function Login() {
   const [input, setInput] = useState({
     name: "",
     email: "",
+    phNo: "",
     password: "",
   });
   const [loginInput, setloginInput] = useState({
@@ -209,7 +210,7 @@ function Login() {
               type="text"
               label="Phone Number"
               variant="outlined"
-              name="phoneNumber"
+              name="phNo"
               onChange={handleChange}
             />
             <Input

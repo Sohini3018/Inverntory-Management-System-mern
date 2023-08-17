@@ -16,8 +16,6 @@ import {
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import SearchIcon from "@mui/icons-material/Search";
-import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
-import Select from "react-dropdown-select";
 import InstockRow from "./instockRows";
 
 const Search = styled("div")(({ theme }) => ({
@@ -90,30 +88,7 @@ const OrderButton = styled(Button)`
   width: 188px;
 `;
 
-const Options = styled(Box)`
-  width: 200px;
-  display: flex;
-  justify-content: space-between;
-`;
-
-const CalendarBox = styled(Box)`
-  border: 1.5px solid #bdb9b9;
-  border-radius: 1.5px;
-  width: 49px;
-`;
-
 function Instocks() {
-  const options = [
-    {
-      value: 1,
-      label: "Leanne Graham",
-    },
-    {
-      value: 2,
-      label: "Ervin Howell",
-    },
-  ];
-
   const orders = [
     {
       orderId: "123",
@@ -157,20 +132,6 @@ function Instocks() {
             inputProps={{ "aria-label": "search" }}
           />
         </Search>
-
-        <Options>
-          <CalendarBox>
-            <CalendarMonthIcon
-              style={{ position: "relative", top: "7px", left: "10px" }}
-            />
-          </CalendarBox>
-          <Select
-            options={options}
-            placeholder="Status"
-            style={{ width: "130px", height: "40px" }}
-            onChange={(values) => this.setValues(values)}
-          />
-        </Options>
       </Wrapper>
 
       <TableContainer component={Paper}>

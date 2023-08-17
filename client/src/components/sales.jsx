@@ -30,7 +30,7 @@ const Container = styled(Box)`
   flex-direction: column;
   justify-content: space-between;
 `;
-function Dashboard(props) {
+function Sales(props) {
   const [salesData, setSalesData] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -43,6 +43,7 @@ function Dashboard(props) {
         setLoading(false);
       } catch (error) {
         console.error("Error fetching data:", error);
+        setLoading(false);
       }
     }
     fetchData();
@@ -134,8 +135,18 @@ function Dashboard(props) {
           </Card>
           <Card sx={{ height: "108px", width: "300px" }}>
             <CardContent>
-              <CurrencyRupeeIcon />
-              <AddIcon />
+              <Box
+                display={"flex"}
+                justifyContent={"space-evenly"}
+                width={126}
+                alignItems={"center"}
+              >
+                <CurrencyRupeeIcon />
+                <AddIcon />
+                <Typography sx={{ fontSize: 25 }} color="text.primary">
+                  {salesData.customerCount}
+                </Typography>
+              </Box>
               <Typography
                 sx={{ fontSize: 15 }}
                 color="text.primary"
@@ -178,4 +189,4 @@ function Dashboard(props) {
   );
 }
 
-export default Dashboard;
+export default Sales;

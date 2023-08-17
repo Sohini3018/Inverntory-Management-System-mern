@@ -32,9 +32,6 @@ app.post('/login', async (req, res) => {
     else {
         res.send("No such user");
     }
-
-
-
 });
 
 
@@ -105,17 +102,29 @@ app.get('/sales-stats', async (req, res) => {
         ]);
 
         const salesReturn = await Transaction.aggregate([
-            { $match: { type: "sale", date: { $gte: today } } },
+            { $match: { type: "return", date: { $gte: today } } },
             { $group: { _id: null, total: { $sum: "$amount" } } }
         ]);
 
         // Count the number of orders placed today with type "return"
         const orderCount = await Transaction.countDocuments({ type: "return", date: { $gte: today } });
 
+        const customerCountPipeline = [
+            {
+                $match: { type: "return", date: { $gte: today } }
+            },
+            {
+                $group: { _id: "$customer", count: { $sum: 1 } }
+            }
+        ];
+
+        const customerCount = await Transaction.aggregate(customerCountPipeline);
+
         res.status(200).json({
             totalRevenue: totalRevenue[0] ? totalRevenue[0].total : 0,
             salesReturn: salesReturn[0] ? salesReturn[0].total : 0,
             orderCount: orderCount,
+            customerCount: customerCount.length > 0 ? customerCount[0].count : 0,
         });
     } catch (error) {
         res.status(500).json({ error: 'An error occurred' });
