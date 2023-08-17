@@ -1,7 +1,7 @@
 import React from "react";
-import { TableRow, TableCell } from "@mui/material";
+import { TableRow, TableCell, Button } from "@mui/material";
 
-function OrderRow({ order }) {
+function OrderRow({ order, onDeleteOrder }) {
   return (
     <TableRow>
       <TableCell>{order.orderId}</TableCell>
@@ -12,6 +12,9 @@ function OrderRow({ order }) {
       <TableCell>{order.products}</TableCell>
       <TableCell>{order.amount}</TableCell>
       <TableCell>{order.status}</TableCell>
+      <TableCell>
+        <Button onClick={() => onDeleteOrder(order.orderId)}>Delete</Button>
+      </TableCell>
     </TableRow>
   );
 }

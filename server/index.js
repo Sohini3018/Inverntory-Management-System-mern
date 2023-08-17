@@ -147,6 +147,29 @@ app.get('/sales-stats', async (req, res) => {
 
 
 
+// DELETE route to delete an order by orderId
+app.delete('/delete-order/:orderId', async (req, res) => {
+    try {
+        const orderId = req.params.orderId;
+
+        await Transaction.deleteOne({ orderId: orderId });
+
+        res.status(200).json({ message: 'Order deleted successfully' });
+        if (orderIndex !== -1) {
+            // Remove the order from the orders array
+            orders.splice(orderIndex, 1);
+
+            res.status(200).json({ message: 'Order deleted successfully' });
+        } else {
+            res.status(404).json({ message: 'Order not found' });
+        }
+    } catch (error) {
+        console.error('Error deleting order:', error);
+        res.status(500).json({ message: 'Error deleting order' });
+    }
+});
+
+
 app.listen(5000, () => {
     console.log("Server listening on port " + 5000);
 })
