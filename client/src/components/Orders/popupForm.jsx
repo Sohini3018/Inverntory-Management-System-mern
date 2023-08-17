@@ -6,9 +6,9 @@ function PopupForm({ onHandleSubmit, onCancel, onAddOrder }) {
     orderId: "",
     date: "",
     customer: "",
-    salesChannel: "",
     destination: "",
-    items: "",
+    products: "",
+    amount: "",
     status: "",
   });
 
@@ -28,9 +28,9 @@ function PopupForm({ onHandleSubmit, onCancel, onAddOrder }) {
         type: "return",
         orderId: newOrder.orderId,
         customer: newOrder.customer,
-        salesChannel: newOrder.salesChannel,
         destination: newOrder.destination,
-        amount: newOrder.items,
+        products: newOrder.products,
+        amount: newOrder.amount,
         date: newOrder.date,
         details: `Customer: ${newOrder.customer}`,
         status: newOrder.status,
@@ -93,13 +93,7 @@ function PopupForm({ onHandleSubmit, onCancel, onAddOrder }) {
           placeholder="Customer Name"
           onChange={handleInputChange}
         />
-        <Input
-          type="text"
-          name="salesChannel"
-          value={newOrder.salesChannel}
-          placeholder="Sales Channel"
-          onChange={handleInputChange}
-        />
+
         <Input
           type="text"
           name="destination"
@@ -108,10 +102,17 @@ function PopupForm({ onHandleSubmit, onCancel, onAddOrder }) {
           onChange={handleInputChange}
         />
         <Input
+          type="text"
+          name="products"
+          value={newOrder.products}
+          placeholder="Enter product name"
+          onChange={handleInputChange}
+        />
+        <Input
           type="number"
-          name="items"
-          value={newOrder.items}
-          placeholder="Number of Items"
+          name="amount"
+          value={newOrder.amount}
+          placeholder="Enter Amount"
           onChange={handleInputChange}
         />
         <Input

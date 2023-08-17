@@ -3,6 +3,9 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Login from "./components/login";
 import Sidenav from "./components/sidenav";
 import PrivateComponent from "./components/privateComp";
+import { Chart, registerables } from 'chart.js';
+Chart.register(...registerables);
+
 
 function App() {
   return (

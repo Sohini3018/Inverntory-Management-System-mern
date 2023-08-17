@@ -204,9 +204,10 @@ function Orders() {
               <TableCell>Order ID</TableCell>
               <TableCell>Date</TableCell>
               <TableCell>Customer</TableCell>
-              <TableCell>Sales Channel</TableCell>
+
               <TableCell>Destination</TableCell>
-              <TableCell>Items</TableCell>
+              <TableCell>Products</TableCell>
+              <TableCell>Amount</TableCell>
               <TableCell>Status</TableCell>
             </TableRow>
           </TableHead>

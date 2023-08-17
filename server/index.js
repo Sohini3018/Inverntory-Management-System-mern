@@ -54,16 +54,56 @@ app.get('/dashboard-stats', async (req, res) => {
             { $group: { _id: null, total: { $sum: "$amount" } } }
         ]);
 
+        // Find the top-selling products based on the quantity of transactions
+        const topSellingProducts = await Transaction.aggregate([
+            { $match: { type: "return" } },
+            { $group: { _id: "$products", quantitySold: { $sum: "$amount" } } },
+            { $sort: { quantitySold: -1 } },
+            { $limit: 10 } // You can adjust this number to show more or fewer products
+        ]);
+
         res.status(200).json({
             totalRevenue: totalRevenue[0].total,
             salesReturn: salesReturn[0].total,
             totalPurchase: totalPurchase[0].total,
             totalIncome: totalIncome[0].total,
+            topSellingProducts: topSellingProducts,
         });
     } catch (error) {
         res.status(500).json({ error: 'An error occurred' });
     }
 });
+
+app.get('/sales-stats', async (req, res) => {
+    try {
+        // Get today's date
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+
+        // Perform aggregation query to calculate dashboard statistics for today's sales
+        const totalRevenue = await Transaction.aggregate([
+            { $match: { type: { $in: ["sale", "income"] }, date: { $gte: today } } },
+            { $group: { _id: null, total: { $sum: "$amount" } } }
+        ]);
+
+        const salesReturn = await Transaction.aggregate([
+            { $match: { type: "sale", date: { $gte: today } } },
+            { $group: { _id: null, total: { $sum: "$amount" } } }
+        ]);
+
+        // Count the number of orders placed today with type "return"
+        const orderCount = await Transaction.countDocuments({ type: "return", date: { $gte: today } });
+
+        res.status(200).json({
+            totalRevenue: totalRevenue[0] ? totalRevenue[0].total : 0,
+            salesReturn: salesReturn[0] ? salesReturn[0].total : 0,
+            orderCount: orderCount,
+        });
+    } catch (error) {
+        res.status(500).json({ error: 'An error occurred' });
+    }
+});
+
 
 
 app.listen(5000, () => {

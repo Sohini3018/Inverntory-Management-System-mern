@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   Box,
   Card,
@@ -31,6 +31,26 @@ const Container = styled(Box)`
   justify-content: space-between;
 `;
 function Dashboard(props) {
+  const [salesData, setSalesData] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await fetch("http://localhost:5000/sales-stats");
+        const data = await response.json();
+        setSalesData(data);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    }
+    fetchData();
+  }, []);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
   return (
     <Box
       component="main"
@@ -41,8 +61,19 @@ function Dashboard(props) {
         <Wrapper>
           <Card sx={{ height: "108px", width: "300px" }}>
             <CardContent>
-              <CurrencyRupeeIcon />
-              <AddIcon />
+              <Box
+                display={"flex"}
+                justifyContent={"space-evenly"}
+                width={126}
+                alignItems={"center"}
+              >
+                <CurrencyRupeeIcon />
+                <AddIcon />
+                <Typography sx={{ fontSize: 25 }} color="text.primary">
+                  {salesData.totalRevenue}
+                </Typography>
+              </Box>
+
               <Typography
                 sx={{ fontSize: 15 }}
                 color="text.primary"
@@ -55,8 +86,18 @@ function Dashboard(props) {
           </Card>
           <Card sx={{ height: "108px", width: "300px" }}>
             <CardContent>
-              <CurrencyRupeeIcon />
-              <AddIcon />
+              <Box
+                display={"flex"}
+                justifyContent={"space-evenly"}
+                width={126}
+                alignItems={"center"}
+              >
+                <CurrencyRupeeIcon />
+                <AddIcon />
+                <Typography sx={{ fontSize: 25 }} color="text.primary">
+                  {salesData.orderCount}
+                </Typography>
+              </Box>
               <Typography
                 sx={{ fontSize: 15 }}
                 color="text.primary"
@@ -69,8 +110,18 @@ function Dashboard(props) {
           </Card>
           <Card sx={{ height: "108px", width: "300px" }}>
             <CardContent>
-              <CurrencyRupeeIcon />
-              <AddIcon />
+              <Box
+                display={"flex"}
+                justifyContent={"space-evenly"}
+                width={126}
+                alignItems={"center"}
+              >
+                <CurrencyRupeeIcon />
+                <AddIcon />
+                <Typography sx={{ fontSize: 25 }} color="text.primary">
+                  {salesData.salesReturn}
+                </Typography>
+              </Box>
               <Typography
                 sx={{ fontSize: 15 }}
                 color="text.primary"
