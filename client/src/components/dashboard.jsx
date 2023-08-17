@@ -74,6 +74,63 @@ function Dashboard(props) {
     });
   };
 
+  const renderBarGraph = (data) => {
+    if (!data || !data.topSellingProducts) {
+      console.error("Data is missing or incomplete.");
+      return;
+    }
+    const labels = data.topSellingProducts.map((product) => product._id);
+    const quantities = data.topSellingProducts.map(
+      (product) => product.quantitySold
+    );
+
+    const ctx = document.getElementById("barGraph").getContext("2d");
+    new Chart(ctx, {
+      type: "bar",
+      data: {
+        labels: labels,
+        datasets: [
+          {
+            label: "Quantity Sold",
+            data: quantities,
+            backgroundColor: [
+              "rgba(255, 99, 132, 0.6)",
+              "rgba(54, 162, 235, 0.6)",
+              "rgba(255, 205, 86, 0.6)",
+              // Add more colors as needed
+            ],
+            borderColor: [
+              "rgb(255, 99, 132)",
+              "rgb(54, 162, 235)",
+              "rgb(255, 205, 86)",
+              // Add more colors as needed
+            ],
+            borderWidth: 1,
+          },
+        ],
+      },
+      options: {
+        responsive: true,
+        legend: {
+          display: false,
+        },
+        title: {
+          display: true,
+          text: "Top Selling Products",
+        },
+        scales: {
+          yAxes: [
+            {
+              ticks: {
+                beginAtZero: true,
+              },
+            },
+          ],
+        },
+      },
+    });
+  };
+
   useEffect(() => {
     async function fetchData() {
       try {
@@ -82,6 +139,7 @@ function Dashboard(props) {
         setDashboardData(data);
         setLoading(false);
         renderPieChart(data); // Call the chart rendering function here
+        renderBarGraph(data);
       } catch (error) {
         console.error("Error fetching data:", error);
         setLoading(false);
@@ -100,6 +158,19 @@ function Dashboard(props) {
 
       // Render new chart
       renderPieChart(dashboardData);
+    }
+  }, [dashboardData]);
+
+  useEffect(() => {
+    if (dashboardData) {
+      // Clear previous chart if it exists
+      const existingChart = Chart.getChart("barGraph");
+      if (existingChart) {
+        existingChart.destroy();
+      }
+
+      // Render new chart
+      renderBarGraph(dashboardData);
     }
   }, [dashboardData]);
 
@@ -203,6 +274,7 @@ function Dashboard(props) {
               >
                 Bargraph
               </Typography>
+              <canvas id="barGraph" width="400" height="400"></canvas>
             </CardContent>
             <CardActions></CardActions>
           </Card>
