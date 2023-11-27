@@ -205,7 +205,7 @@ function Sales(props) {
                 <CurrencyRupeeIcon />
                 <AddIcon />
                 <Typography sx={{ fontSize: 25 }} color="text.primary">
-                  {salesData.totalRevenue}
+                  {salesData ? salesData.totalRevenue : "N/A"}
                 </Typography>
               </Box>
 
@@ -230,7 +230,7 @@ function Sales(props) {
                 <CurrencyRupeeIcon />
                 <AddIcon />
                 <Typography sx={{ fontSize: 25 }} color="text.primary">
-                  {salesData.orderCount}
+                  {salesData ? salesData.orderCount : "N/A"}
                 </Typography>
               </Box>
               <Typography
@@ -254,7 +254,7 @@ function Sales(props) {
                 <CurrencyRupeeIcon />
                 <AddIcon />
                 <Typography sx={{ fontSize: 25 }} color="text.primary">
-                  {salesData.salesReturn}
+                  {salesData ? salesData.salesReturn : "N/A"}
                 </Typography>
               </Box>
               <Typography
@@ -278,7 +278,7 @@ function Sales(props) {
                 <CurrencyRupeeIcon />
                 <AddIcon />
                 <Typography sx={{ fontSize: 25 }} color="text.primary">
-                  {salesData.customerCount}
+                  {salesData ? salesData.customerCount : "N/A"}
                 </Typography>
               </Box>
               <Typography

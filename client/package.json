@@ -16,6 +16,7 @@
     "bootstrap": "^5.3.1",
     "chart.js": "^4.3.3",
     "date-fns": "^2.30.0",
+    "openai": "^4.20.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-dropdown-select": "^4.10.0",
@@ -49,5 +50,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.3.5"
   }
 }

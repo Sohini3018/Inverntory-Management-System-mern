@@ -212,7 +212,7 @@ function Dashboard(props) {
                 <CurrencyRupeeIcon />
                 <AddIcon />
                 <Typography sx={{ fontSize: 25 }} color="text.primary">
-                  {dashboardData.totalRevenue}
+                {dashboardData ? dashboardData.totalRevenue : 'N/A'}
                 </Typography>
               </Wrapper>
             </CardContent>
@@ -231,7 +231,7 @@ function Dashboard(props) {
                 <CurrencyRupeeIcon />
                 <AddIcon />
                 <Typography sx={{ fontSize: 25 }} color="text.primary">
-                  {dashboardData.salesReturn}
+                  {dashboardData ? dashboardData.salesReturn : 'N/A'}
                 </Typography>
               </Wrapper>
             </CardContent>
@@ -250,7 +250,7 @@ function Dashboard(props) {
                 <CurrencyRupeeIcon />
                 <AddIcon />
                 <Typography sx={{ fontSize: 25 }} color="text.primary">
-                  {dashboardData.totalPurchase}
+                  {dashboardData ? dashboardData.totalPurchase : "N/A"}
                 </Typography>
               </Wrapper>
             </CardContent>
@@ -269,7 +269,7 @@ function Dashboard(props) {
                 <CurrencyRupeeIcon />
                 <AddIcon />
                 <Typography sx={{ fontSize: 25 }} color="text.primary">
-                  {dashboardData.totalIncome}
+                  {dashboardData ? dashboardData.totalIncome : "N/A"}
                 </Typography>
               </Wrapper>
             </CardContent>

@@ -1,10 +1,10 @@
 import { React, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Dashboard from "./dashboard";
-import Orders from "./Orders/orders";
-import Instock from "./Instock/instock";
-import Sales from "./sales";
-import Users from "./users";
+import Dashboard from "../client/src/components/dashboard";
+import Orders from "../client/src/components/Orders/orders";
+import Instock from "../client/src/components/Instock/instock";
+import Sales from "../client/src/components/sales";
+import Users from "../client/src/components/users";
 import { styled, useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import MuiDrawer from "@mui/material/Drawer";
