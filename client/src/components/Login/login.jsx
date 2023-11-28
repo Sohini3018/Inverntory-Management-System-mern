@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import backgroundImage from "../Assets/Inventory_image.jpg";
-import logoimage from "../Assets/Logo_image.png";
+import backgroundImage from "../../Assets/Inventory_image.jpg";
+import logoimage from "../../Assets/Logo_image.png";
 import { Box, TextField, Button, Typography } from "@mui/material";
 import { styled } from "@mui/system";
 

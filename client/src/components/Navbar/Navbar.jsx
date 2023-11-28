@@ -3,8 +3,8 @@ import { useNavigate } from "react-router-dom";
 import Dashboard from "../Dashboard/dashboard";
 import Orders from "../Orders/orders";
 import Instock from "../Instock/instock";
-import Sales from "../sales";
-import Users from "../users";
+import Sales from "../Sales/sales";
+import Users from "../Users/users";
 import Box from "@mui/material/Box";
 
 

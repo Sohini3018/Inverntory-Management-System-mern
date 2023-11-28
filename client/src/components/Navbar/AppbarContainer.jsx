@@ -1,4 +1,5 @@
 import React from 'react'
+import {Link} from 'react-router-dom';
 import MuiAppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import { styled } from "@mui/material/styles";
@@ -44,9 +45,15 @@ const AppbarContainer = ({open, handleDrawerOpen, handleLogout}) => {
           >
             <MenuIcon />
           </IconButton>
-          <Button variant="outlined" onClick={handleLogout}>
-            Logout
-          </Button>
+          <div style={{ marginLeft: "auto", display: "flex", gap: 15 }}>
+          <Link to="/chatbox" className="inline-block px-6 py-3 bg-blue-500 text-white font-bold rounded-md hover:bg-blue-600 focus:outline-none focus:shadow-outline-blue active:bg-blue-800">
+      Ask GPT 3.5
+    </Link>
+            <Button variant="outlined" onClick={handleLogout}>
+              Logout
+            </Button>          
+          </div>
+          
         </Toolbar>
       </AppBar>
   )

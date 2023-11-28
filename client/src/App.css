@@ -1,3 +1,10 @@
+/* src/App.css */
+
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+/* Your existing styles go here */
 * {
   font-family: "Poppins", sans-serif;
   margin: 0;

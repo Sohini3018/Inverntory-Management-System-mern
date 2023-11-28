@@ -30,7 +30,7 @@ const ChatBox = () => {
 
 
   return (
-    <div className="flex flex-col h-screen">
+    <div className="flex flex-col h-screen bg-[#788e8e]">
       <div className="flex flex-col justify-end p-10 rounded-lg w-full h-full">
         <div className="flex flex-col flex-grow overflow-y-auto mb-4 gap-4" ref={chatRef}>
           {messages.map((message, index) => (
@@ -44,11 +44,11 @@ const ChatBox = () => {
             placeholder="Type your message..."
             value={userInput}
             onChange={(e) => setUserInput(e.target.value)}
-            className="flex-grow p-2 border border-gray-300 rounded-l-md focus:outline-none focus:border-blue-500"
+            className="flex-grow p-3 border border-gray-300 rounded-l-md focus:outline-none focus:border-blue-500"
           />
           <button
             onClick={handleSend}
-            className="p-2 bg-blue-500 text-white rounded-r-md"
+            className="p-3 bg-[#39262a] text-white rounded-r-md focus:outline-none hover:bg-blue-600"
           >
             Send
           </button>

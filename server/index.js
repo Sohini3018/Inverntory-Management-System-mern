@@ -75,7 +75,7 @@ app.get('/dashboard-stats', async (req, res) => {
             { $sort: { quantitySold: -1 } },
             { $limit: 10 } // You can adjust this number to show more or fewer products
         ]);
-
+        
         res.status(200).json({
             totalRevenue: totalRevenue[0].total,
             salesReturn: salesReturn[0].total,
@@ -155,9 +155,9 @@ app.delete('/delete-order/:orderId', async (req, res) => {
         await Transaction.deleteOne({ orderId: orderId });
 
         res.status(200).json({ message: 'Order deleted successfully' });
-        if (orderIndex !== -1) {
+        if (orderId !== -1) {
             // Remove the order from the orders array
-            orders.splice(orderIndex, 1);
+            orders.splice(orderId, 1);
 
             res.status(200).json({ message: 'Order deleted successfully' });
         } else {
